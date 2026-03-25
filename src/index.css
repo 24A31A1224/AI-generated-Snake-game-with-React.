@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Orbitron:wght@400;700;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "VT323", monospace;
+  --font-mono: "VT323", monospace;
+  --font-pixel: "Press Start 2P", cursive;
+  --font-digital: "Orbitron", sans-serif;
+  
+  --color-cyan-400: #00ffff;
+  --color-cyan-500: #00cccc;
+  --color-magenta-400: #ff00ff;
+  --color-magenta-500: #cc00cc;
+}
+
+body {
+  background-color: #000000;
+  color: #00ffff;
+  overflow: hidden;
+  font-family: var(--font-sans);
+}
+
+/* CRT Screen Effect */
+body::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 100;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+}
+
+body::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(18, 16, 16, 0.1);
+  opacity: 0;
+  z-index: 101;
+  pointer-events: none;
+  animation: flicker 0.15s infinite;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.27861; }
+  5% { opacity: 0.34769; }
+  10% { opacity: 0.23604; }
+  15% { opacity: 0.90626; }
+  20% { opacity: 0.18128; }
+  25% { opacity: 0.83891; }
+  30% { opacity: 0.65583; }
+  35% { opacity: 0.67807; }
+  40% { opacity: 0.26559; }
+  45% { opacity: 0.84693; }
+  50% { opacity: 0.96019; }
+  55% { opacity: 0.08523; }
+  60% { opacity: 0.71056; }
+  65% { opacity: 0.73437; }
+  70% { opacity: 0.28574; }
+  75% { opacity: 0.96387; }
+  80% { opacity: 0.22603; }
+  85% { opacity: 0.20419; }
+  90% { opacity: 0.40035; }
+  95% { opacity: 0.64138; }
+  100% { opacity: 0.34136; }
+}
+
+@keyframes scanline {
+  0% { bottom: 100%; }
+  80% { bottom: 100%; }
+  100% { bottom: 0%; }
+}
+
+.scanline {
+  width: 100%;
+  height: 100px;
+  z-index: 102;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(0, 0, 0, 0) 100%);
+  opacity: 0.1;
+  position: absolute;
+  bottom: 100%;
+  animation: scanline 10s linear infinite;
+}
+
+@keyframes glitch-tear {
+  0% { transform: translate(0); }
+  20% { transform: translate(-5px, 5px); }
+  40% { transform: translate(-5px, -5px); }
+  60% { transform: translate(5px, 5px); }
+  80% { transform: translate(5px, -5px); }
+  100% { transform: translate(0); }
+}
+
+.tear {
+  animation: glitch-tear 0.2s infinite;
+  animation-timing-function: step-end;
+}
+
+.glitch-text {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 #ff00ff;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -2px 0 #00ffff, 2px 2px #ff00ff;
+  animation: glitch-anim2 1s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% { clip: rect(31px, 9999px, 94px, 0); }
+  20% { clip: rect(62px, 9999px, 42px, 0); }
+  40% { clip: rect(16px, 9999px, 78px, 0); }
+  60% { clip: rect(1px, 9999px, 13px, 0); }
+  80% { clip: rect(53px, 9999px, 86px, 0); }
+  100% { clip: rect(91px, 9999px, 98px, 0); }
+}
+
+@keyframes glitch-anim2 {
+  0% { clip: rect(65px, 9999px, 100px, 0); }
+  20% { clip: rect(30px, 9999px, 20px, 0); }
+  40% { clip: rect(10px, 9999px, 50px, 0); }
+  60% { clip: rect(80px, 9999px, 90px, 0); }
+  80% { clip: rect(40px, 9999px, 60px, 0); }
+  100% { clip: rect(0px, 9999px, 30px, 0); }
+}
+
+.pixel-border {
+  border: 4px solid #00ffff;
+  box-shadow: 4px 4px 0 #ff00ff;
+}
+
+.pixel-button {
+  background: #000;
+  border: 2px solid #00ffff;
+  color: #00ffff;
+  padding: 8px 16px;
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.pixel-button:hover {
+  background: #00ffff;
+  color: #000;
+  box-shadow: 4px 4px 0 #ff00ff;
+}
+
+.neon-grid {
+  background-image: 
+    linear-gradient(to right, rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
